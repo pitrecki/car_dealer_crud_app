@@ -1,6 +1,7 @@
 plugins {
 	id 'org.springframework.boot' version '2.5.0-SNAPSHOT'
 	id 'io.spring.dependency-management' version '1.0.11.RELEASE'
+	id "com.avast.gradle.docker-compose" version "0.14.0"
 	id 'java'
 }
 
@@ -32,4 +33,8 @@ dependencies {
 
 test {
 	useJUnitPlatform()
+}
+
+task startApp {
+	dependsOn(composeDownForced, assemble, composeUp)
 }

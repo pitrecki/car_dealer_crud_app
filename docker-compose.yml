@@ -1,0 +1,30 @@
+version: '3.8'
+services:
+  app:
+    container_name: car-dealer-app
+    image: car-dealer-app
+    build: ./
+    ports:
+      - 8088:8080
+    depends_on:
+      - db
+      - adminer
+  db:
+    image: postgres:13.1-alpine
+    restart: always
+    container_name: postgress
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_PASSWORD=pass
+      - POSTGRES_USER=postgres
+      - POSTGRES_DB=car_dealer
+  adminer:
+    image: adminer:4.7.8
+    restart: always
+    container_name: adminer
+    ports:
+      - 8081:8080
+    depends_on:
+      - db
+
