@@ -23,10 +23,10 @@ import java.math.BigDecimal;
 public class Part extends BaseEntity {
     @NotNull @Column(name = "name", nullable = false) private String name;
     @NotNull @Column(name = "description", nullable = false) private String description;
-    @NotNull @Column(name = "price", nullable = false) private BigDecimal price;
-    @Column(name = "available", nullable = false) private boolean isAvailable;
-    @Positive @Column(name = "days_to_dispatch", nullable = false) private int daysToDispatch;
-    @ManyToOne @JoinColumn(name = "car_id", nullable = false) private Car car;
+    @NotNull @Column(name = "price", precision = 2) private BigDecimal price;
+    @Column(name = "available") private Boolean isAvailable = false;
+    @Positive @Column(name = "days_to_dispatch") private Integer daysToDispatch = 0;
+    @ManyToOne @JoinColumn(name = "car_id") private Car car;
 
     public Part(@NotNull String name, @NotNull String description, @NotNull BigDecimal price) {
         this.name = name;
@@ -61,12 +61,12 @@ public class Part extends BaseEntity {
             return this;
         }
 
-        public PartBuilder withAvalaibility(boolean avalaibility) {
-            part.setAvailable(avalaibility);
+        public PartBuilder withAvalaibility(Boolean avalaibility) {
+            part.setIsAvailable(avalaibility);
             return this;
         }
 
-        public PartBuilder withDaysToDispatch(int daysToDispatch) {
+        public PartBuilder withDaysToDispatch(Integer daysToDispatch) {
             part.setDaysToDispatch(daysToDispatch);
             return this;
         }

@@ -1,0 +1,1 @@
+insert into PART (NAME, DESCRIPTION, PRICE) values ('SOME_NAME', 'OLD_DESC', 23.43);
