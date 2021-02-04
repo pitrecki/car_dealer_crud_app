@@ -3,13 +3,12 @@ package org.pitrecki.car_dealer_crud_app.domain.entity;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.NonNull;
 
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
 
-import static javax.persistence.GenerationType.SEQUENCE;
+import static javax.persistence.GenerationType.IDENTITY;
 
 @MappedSuperclass
 @NoArgsConstructor
@@ -17,7 +16,6 @@ import static javax.persistence.GenerationType.SEQUENCE;
 public abstract class BaseEntity {
 
     @Id
-    @GeneratedValue(strategy = SEQUENCE)
-    @NonNull
+    @GeneratedValue(strategy = IDENTITY)
     private Long id;
 }
