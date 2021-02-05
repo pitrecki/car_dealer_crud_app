@@ -20,6 +20,8 @@ import static org.pitrecki.car_dealer_crud_app.utils.TestDummies.DUMMY_DATE;
 import static org.pitrecki.car_dealer_crud_app.utils.TestDummies.DUMMY_SERVICE_TICKET;
 import static org.pitrecki.car_dealer_crud_app.utils.TestDummies.DUMMY_STRING;
 import static org.springframework.http.HttpMethod.GET;
+import static org.springframework.http.HttpMethod.POST;
+import static org.springframework.http.MediaType.APPLICATION_JSON;
 import static org.springframework.test.web.servlet.ResultMatcher.matchAll;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.request;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
@@ -50,21 +52,24 @@ class ServiceTicketControllerTest {
         given(service.findAllServiceTicketsWithinDate(any(), any()))
                 .willReturn(Stream.of(DUMMY_SERVICE_TICKET, DUMMY_SERVICE_TICKET));
 
-        performRequest("partName");
-    }
-
-
-    private void performRequest(String param) throws Exception {
         mvc.perform(request(GET, "/api/service")
                 .param("model", DUMMY_STRING)
                 .param("make", DUMMY_STRING)
                 .param("starDate", DUMMY_DATE.toString())
                 .param("endDate", DUMMY_DATE.plusDays(1).toString()))
-                .andDo(print())
                 .andExpect(
                         matchAll(status().isOk(),
                                 jsonPath("$..description", of(DUMMY_STRING, DUMMY_STRING)).hasJsonPath(),
                                 jsonPath("$..period.startDate", of(DUMMY_DATE, DUMMY_DATE)).hasJsonPath()
                         ));
+    }
+
+    @Test
+    void shouldReturnStatusOkAndAddTicketToDb() throws Exception {
+        mvc.perform(request(POST, "/api/service")
+                .contentType(APPLICATION_JSON)
+                .content("{\"id\": 1, \"description\": \"someDesc\"}"))
+                .andDo(print())
+                .andExpect(status().isOk());
     }
 }
