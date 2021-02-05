@@ -6,33 +6,54 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.pitrecki.car_dealer_crud_app.domain.adapter.DBPartAdapter;
+import org.pitrecki.car_dealer_crud_app.domain.entity.Part;
 
 import javax.persistence.EntityNotFoundException;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
+import static org.mockito.BDDMockito.given;
 import static org.mockito.BDDMockito.then;
 import static org.mockito.BDDMockito.willThrow;
+import static org.pitrecki.car_dealer_crud_app.utils.TestDumies.DUMMY_ID;
+import static org.pitrecki.car_dealer_crud_app.utils.TestDumies.DUMMY_PART;
+import static org.pitrecki.car_dealer_crud_app.utils.TestDumies.DUMMY_STRING;
 
 @ExtendWith(MockitoExtension.class)
 class PartServiceTest {
 
-    private static final String SOME_DESCRIPTION = "someDesc";
-    private static final long SOME_ID = 1L;
     @Mock private DBPartAdapter adapter;
     @InjectMocks private PartService service;
 
     @Test
     void shouldUpdatePartDescription() {
-        service.updatePartDescription(SOME_ID, SOME_DESCRIPTION);
+        service.updatePartDescription(DUMMY_ID, DUMMY_STRING);
 
-        then(adapter).should().updateDescriptionById(SOME_ID, SOME_DESCRIPTION);
+        then(adapter).should().updateDescriptionById(DUMMY_ID, DUMMY_STRING);
     }
 
     @Test
     void shouldThrowsExceptionWhenUnableToUpdateDescription() {
-        willThrow(EntityNotFoundException.class).given(adapter).updateDescriptionById(SOME_ID, SOME_DESCRIPTION);
+        willThrow(EntityNotFoundException.class).given(adapter).updateDescriptionById(DUMMY_ID, DUMMY_STRING);
 
         assertThatExceptionOfType(EntityNotFoundException.class)
-                .isThrownBy(() -> service.updatePartDescription(SOME_ID, SOME_DESCRIPTION));
+                .isThrownBy(() -> service.updatePartDescription(DUMMY_ID, DUMMY_STRING));
+    }
+
+    @Test
+    void shouldFindPartById() {
+        given(adapter.findPartById(DUMMY_ID)).willReturn(DUMMY_PART);
+
+        Part result = service.findPartAvailability(DUMMY_ID);
+
+        assertThat(result).isEqualTo(DUMMY_PART);
+    }
+
+    @Test
+    void shouldThrowsExceptionWhenPartNotFound() {
+        willThrow(EntityNotFoundException.class).given(adapter).findPartById(DUMMY_ID);
+
+        assertThatExceptionOfType(EntityNotFoundException.class)
+                .isThrownBy(() -> service.findPartAvailability(DUMMY_ID));
     }
 }

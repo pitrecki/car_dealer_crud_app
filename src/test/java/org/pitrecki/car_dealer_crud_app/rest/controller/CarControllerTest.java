@@ -6,6 +6,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.modelmapper.ModelMapper;
+import org.modelmapper.convention.MatchingStrategies;
 import org.pitrecki.car_dealer_crud_app.service.CarService;
 import org.pitrecki.car_dealer_crud_app.utils.ObjectMapper;
 import org.springframework.test.web.servlet.MockMvc;
@@ -31,16 +32,16 @@ import static org.springframework.test.web.servlet.setup.MockMvcBuilders.standal
 @ExtendWith(MockitoExtension.class)
 class CarControllerTest {
 
-    private final ObjectMapper mapper = new ObjectMapper(new ModelMapper());
     @Mock private CarService service;
 
     private CarController controller;
-
     private MockMvc mvc;
 
     @BeforeEach
     void setUp() {
-        controller = new CarController(service, mapper);
+        ModelMapper mapper = new ModelMapper();
+        mapper.getConfiguration().setMatchingStrategy(MatchingStrategies.LOOSE);
+        controller = new CarController(service, new ObjectMapper(mapper));
         mvc = standaloneSetup(controller)
                 .build();
     }

@@ -5,15 +5,11 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.math.BigDecimal;
-
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
 @Setter
-public class PartDto {
-    private String description;
-    private String name;
-    private BigDecimal price;
-    private PartAvailabilityDto partAvailability;
+public class PartAvailabilityDto {
+    private Integer daysToDispatch;
+    private Boolean isAvailable;
 }
