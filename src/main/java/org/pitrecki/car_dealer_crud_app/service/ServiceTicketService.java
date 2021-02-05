@@ -1,6 +1,7 @@
 package org.pitrecki.car_dealer_crud_app.service;
 
 import lombok.AllArgsConstructor;
+import org.pitrecki.car_dealer_crud_app.aspect.Logging;
 import org.pitrecki.car_dealer_crud_app.domain.adapter.DBCarAdapter;
 import org.pitrecki.car_dealer_crud_app.domain.adapter.DBPartAdapter;
 import org.pitrecki.car_dealer_crud_app.domain.adapter.DBServiceTickerAdapter;
@@ -28,6 +29,7 @@ public class ServiceTicketService {
     private final DBPartAdapter partAdapter;
     private final DBServiceTickerAdapter serviceTicketAdapter;
 
+    @Logging
     public void addTicket(ServiceTicketRequest request) {
         Part part = partAdapter.findPartById(request.getId());
         ServiceTicket ticket = aServiceTicket()
@@ -38,6 +40,7 @@ public class ServiceTicketService {
         serviceTicketAdapter.addTicket(ticket);
     }
 
+    @Logging
     public Stream<ServiceTicket> findAllServiceTicketsWithinDate(CarDto car, TimespanRequest period) {
         return findCarAndReturnAllServiceTickets(car).stream()
                 .filter(serviceTicket -> compareDates(serviceTicket, period));

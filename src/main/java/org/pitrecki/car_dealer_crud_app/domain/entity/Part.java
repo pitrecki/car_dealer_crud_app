@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -25,7 +26,8 @@ import static javax.persistence.CascadeType.ALL;
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
-@EqualsAndHashCode(callSuper = false)
+@EqualsAndHashCode(callSuper = false, exclude = {"tickets", "car"})
+@ToString(exclude = {"tickets", "car"})
 public class Part extends BaseEntity {
     @NotNull @Column(name = "name", nullable = false) private String name;
     @NotNull @Column(name = "description", nullable = false) private String description;

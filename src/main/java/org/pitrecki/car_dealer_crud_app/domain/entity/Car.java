@@ -3,6 +3,7 @@ package org.pitrecki.car_dealer_crud_app.domain.entity;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -16,7 +17,8 @@ import java.util.List;
 @Table(name = "car")
 @NoArgsConstructor
 @Data
-@EqualsAndHashCode(callSuper = false)
+@EqualsAndHashCode(callSuper = false, exclude = {"parts", "serviceTickets"})
+@ToString(exclude = {"parts", "serviceTickets"})
 public class Car extends BaseEntity {
 
     @NotNull @Column(name = "model", nullable = false, unique = true) private String model;
