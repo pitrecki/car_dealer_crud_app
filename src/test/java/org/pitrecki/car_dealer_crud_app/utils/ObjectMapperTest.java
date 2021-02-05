@@ -5,8 +5,8 @@ import org.modelmapper.ModelMapper;
 import org.pitrecki.car_dealer_crud_app.domain.model.CarDto;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.pitrecki.car_dealer_crud_app.utils.TestDumies.DUMMY_CAR;
-import static org.pitrecki.car_dealer_crud_app.utils.TestDumies.DUMMY_STRING;
+import static org.pitrecki.car_dealer_crud_app.utils.TestDummies.DUMMY_CAR;
+import static org.pitrecki.car_dealer_crud_app.utils.TestDummies.DUMMY_STRING;
 
 class ObjectMapperTest {
 

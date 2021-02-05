@@ -12,7 +12,7 @@ import org.pitrecki.car_dealer_crud_app.domain.adapter.DBCarAdapter;
 import org.pitrecki.car_dealer_crud_app.domain.entity.Car;
 import org.pitrecki.car_dealer_crud_app.domain.entity.ServiceTicket;
 import org.pitrecki.car_dealer_crud_app.domain.model.CarDto;
-import org.pitrecki.car_dealer_crud_app.domain.model.PeriodDto;
+import org.pitrecki.car_dealer_crud_app.domain.model.TimespanRequest;
 
 import java.time.LocalDate;
 import java.util.Optional;
@@ -21,17 +21,17 @@ import java.util.stream.Stream;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.BDDMockito.given;
-import static org.pitrecki.car_dealer_crud_app.utils.TestDumies.DUMMY_CAR;
-import static org.pitrecki.car_dealer_crud_app.utils.TestDumies.DUMMY_DATE;
-import static org.pitrecki.car_dealer_crud_app.utils.TestDumies.DUMMY_INTERGER;
-import static org.pitrecki.car_dealer_crud_app.utils.TestDumies.DUMMY_SERVICE_TICKET;
-import static org.pitrecki.car_dealer_crud_app.utils.TestDumies.DUMMY_STRING;
+import static org.pitrecki.car_dealer_crud_app.utils.TestDummies.DUMMY_CAR;
+import static org.pitrecki.car_dealer_crud_app.utils.TestDummies.DUMMY_DATE;
+import static org.pitrecki.car_dealer_crud_app.utils.TestDummies.DUMMY_INTERGER;
+import static org.pitrecki.car_dealer_crud_app.utils.TestDummies.DUMMY_SERVICE_TICKET;
+import static org.pitrecki.car_dealer_crud_app.utils.TestDummies.DUMMY_STRING;
 
 @ExtendWith(MockitoExtension.class)
 class ServiceTicketServiceTest {
 
     private static final CarDto CAR = new CarDto(DUMMY_STRING, DUMMY_STRING);
-    private static final PeriodDto PERIOD = givenPeriod(DUMMY_DATE, DUMMY_DATE.plusDays(1));
+    private static final TimespanRequest PERIOD = givenPeriod(DUMMY_DATE, DUMMY_DATE.plusDays(1));
 
     @Mock private DBCarAdapter carAdapter;
     @InjectMocks private ServiceTicketService service;
@@ -87,7 +87,7 @@ class ServiceTicketServiceTest {
         );
     }
 
-    private static PeriodDto givenPeriod(LocalDate startDate, LocalDate endDate) {
-        return new PeriodDto(startDate, endDate);
+    private static TimespanRequest givenPeriod(LocalDate startDate, LocalDate endDate) {
+        return new TimespanRequest(startDate, endDate);
     }
 }

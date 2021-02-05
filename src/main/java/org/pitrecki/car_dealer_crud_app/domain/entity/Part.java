@@ -8,11 +8,17 @@ import lombok.NoArgsConstructor;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
 import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.List;
+
+import static javax.persistence.CascadeType.ALL;
 
 @Entity
 @Table(name = "part")
@@ -27,6 +33,13 @@ public class Part extends BaseEntity {
     @Column(name = "available") private Boolean isAvailable = false;
     @Positive @Column(name = "days_to_dispatch") private Integer daysToDispatch = 0;
     @ManyToOne @JoinColumn(name = "car_id") private Car car;
+    @ManyToMany(cascade = ALL)
+    @JoinTable(
+            name = "part_service",
+            joinColumns = { @JoinColumn(name = "part_id") },
+            inverseJoinColumns = { @JoinColumn(name = "service_id") }
+    )
+    private List<ServiceTicket> tickets = new ArrayList<>();
 
     public Part(@NotNull String name, @NotNull String description, @NotNull BigDecimal price) {
         this.name = name;

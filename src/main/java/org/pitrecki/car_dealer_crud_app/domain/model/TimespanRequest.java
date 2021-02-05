@@ -18,7 +18,7 @@ import static org.springframework.format.annotation.DateTimeFormat.ISO.DATE;
 @Getter
 @Setter
 @ToString
-public class PeriodDto {
+public class TimespanRequest {
     @PastOrPresent
     @DateTimeFormat(iso = DATE)
     private LocalDate startDate;

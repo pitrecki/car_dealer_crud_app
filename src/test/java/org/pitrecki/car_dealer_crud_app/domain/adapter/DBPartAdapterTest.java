@@ -16,9 +16,9 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.BDDMockito.then;
-import static org.pitrecki.car_dealer_crud_app.utils.TestDumies.DUMMY_ID;
-import static org.pitrecki.car_dealer_crud_app.utils.TestDumies.DUMMY_PART;
-import static org.pitrecki.car_dealer_crud_app.utils.TestDumies.DUMMY_STRING;
+import static org.pitrecki.car_dealer_crud_app.utils.TestDummies.DUMMY_ID;
+import static org.pitrecki.car_dealer_crud_app.utils.TestDummies.DUMMY_PART;
+import static org.pitrecki.car_dealer_crud_app.utils.TestDummies.DUMMY_STRING;
 
 @ExtendWith(MockitoExtension.class)
 class DBPartAdapterTest {
