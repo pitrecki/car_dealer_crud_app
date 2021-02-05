@@ -16,14 +16,12 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.BDDMockito.then;
+import static org.pitrecki.car_dealer_crud_app.utils.TestDumies.DUMMY_ID;
+import static org.pitrecki.car_dealer_crud_app.utils.TestDumies.DUMMY_PART;
+import static org.pitrecki.car_dealer_crud_app.utils.TestDumies.DUMMY_STRING;
 
 @ExtendWith(MockitoExtension.class)
 class DBPartAdapterTest {
-
-    private static final long SOME_ID = 1L;
-    private static final String SOME_DESCRIPTION = "someDesc";
-    private static final Part SOME_PART = new Part();
-    private static final String EXCEPTION_MESSAGE = "Unable to update description";
 
     private final ArgumentCaptor<Part> captor = ArgumentCaptor.forClass(Part.class);
 
@@ -32,21 +30,37 @@ class DBPartAdapterTest {
 
     @Test
     void shouldUpdatePartDescriptionByGivenId() {
-        given(repository.findById(SOME_ID)).willReturn(Optional.of(SOME_PART));
+        given(repository.findById(DUMMY_ID)).willReturn(Optional.of(DUMMY_PART));
 
-        adapter.updateDescriptionById(SOME_ID, SOME_DESCRIPTION);
+        adapter.updateDescriptionById(DUMMY_ID, DUMMY_STRING);
 
         then(repository).should().save(captor.capture());
 
         assertThat(captor.getAllValues())
                 .extracting(Part::getDescription)
-                .containsExactly(SOME_DESCRIPTION);
+                .containsExactly(DUMMY_STRING);
     }
 
     @Test
     void shouldThrowsExceptionWhenUnableToUpdateDescription() {
         assertThatExceptionOfType(EntityNotFoundException.class)
-                .isThrownBy(() -> adapter.updateDescriptionById(SOME_ID, SOME_DESCRIPTION))
-                .withMessage(EXCEPTION_MESSAGE);
+                .isThrownBy(() -> adapter.updateDescriptionById(DUMMY_ID, DUMMY_STRING))
+                .withMessage("Unable to update description");
+    }
+
+    @Test
+    void shouldFindPartById() {
+        given(repository.findById(DUMMY_ID)).willReturn(Optional.of(DUMMY_PART));
+
+        Part result = adapter.findPartById(DUMMY_ID);
+
+        assertThat(result).isEqualTo(DUMMY_PART);
+    }
+
+    @Test
+    void shouldThrowsExceptionWhenNotFoundPartById() {
+        assertThatExceptionOfType(EntityNotFoundException.class)
+                .isThrownBy(() -> adapter.findPartById(DUMMY_ID))
+                .withMessageContaining("Unable to find part by given id");
     }
 }
