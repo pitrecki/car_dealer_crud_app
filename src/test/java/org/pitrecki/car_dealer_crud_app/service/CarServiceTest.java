@@ -15,9 +15,9 @@ import static java.util.Optional.empty;
 import static java.util.Optional.of;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.BDDMockito.given;
-import static org.pitrecki.car_dealer_crud_app.utils.TestDumies.DUMMY_CAR;
-import static org.pitrecki.car_dealer_crud_app.utils.TestDumies.DUMMY_PART;
-import static org.pitrecki.car_dealer_crud_app.utils.TestDumies.DUMMY_STRING;
+import static org.pitrecki.car_dealer_crud_app.utils.TestDummies.DUMMY_CAR;
+import static org.pitrecki.car_dealer_crud_app.utils.TestDummies.DUMMY_PART;
+import static org.pitrecki.car_dealer_crud_app.utils.TestDummies.DUMMY_STRING;
 
 @ExtendWith(MockitoExtension.class)
 class CarServiceTest {

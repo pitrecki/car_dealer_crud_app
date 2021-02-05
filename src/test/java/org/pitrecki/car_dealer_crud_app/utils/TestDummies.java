@@ -2,7 +2,6 @@ package org.pitrecki.car_dealer_crud_app.utils;
 
 import org.pitrecki.car_dealer_crud_app.domain.entity.Car;
 import org.pitrecki.car_dealer_crud_app.domain.entity.Part;
-import org.pitrecki.car_dealer_crud_app.domain.entity.Period;
 import org.pitrecki.car_dealer_crud_app.domain.entity.ServiceTicket;
 
 import java.math.BigDecimal;
@@ -13,14 +12,13 @@ import static org.pitrecki.car_dealer_crud_app.domain.entity.Car.CarBuilder.aCar
 import static org.pitrecki.car_dealer_crud_app.domain.entity.Part.PartBuilder.aPart;
 import static org.pitrecki.car_dealer_crud_app.domain.entity.ServiceTicket.ServiceTicketBuilder.aServiceTicket;
 
-public class TestDumies {
+public class TestDummies {
 
     public static final LocalDate DUMMY_DATE = LocalDate.now();
     public static final String DUMMY_STRING = "dummyString";
     public static final BigDecimal DUMMY_PRICE = new BigDecimal("10");
     public static final boolean DUMMY_BOOLEAN = true;
     public static final Integer DUMMY_INTERGER = 3;
-    public static final Period DUMMY_PERIOD = new Period(DUMMY_DATE, DUMMY_DATE.plusDays(1));
     public static final Long DUMMY_ID = 1L;
 
     public static final Part DUMMY_PART = aPart()
@@ -32,11 +30,12 @@ public class TestDumies {
             .build();
     public static final ServiceTicket DUMMY_SERVICE_TICKET = aServiceTicket()
             .withDescription(DUMMY_STRING)
-            .withPeriod(DUMMY_PERIOD)
+            .withEndDate(DUMMY_DATE.plusDays(1))
             .build();
     public static final Car DUMMY_CAR = aCar()
             .withModel(DUMMY_STRING)
-            .withPeriod(DUMMY_PERIOD)
+            .withStartYear(DUMMY_INTERGER)
+            .withEndYear(DUMMY_INTERGER)
             .withMake(DUMMY_STRING)
             .build();
 
@@ -48,7 +47,7 @@ public class TestDumies {
         DUMMY_CAR.setServiceTickets(List.of(DUMMY_SERVICE_TICKET));
     }
 
-    private TestDumies() {
+    private TestDummies() {
     }
 
 }

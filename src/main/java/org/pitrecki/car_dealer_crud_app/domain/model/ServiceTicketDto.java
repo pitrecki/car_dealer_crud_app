@@ -12,6 +12,6 @@ import lombok.Setter;
 public class ServiceTicketDto {
     private CarDto car;
     private String description;
-    private PeriodDto period;
+    private TimespanRequest period;
 
 }

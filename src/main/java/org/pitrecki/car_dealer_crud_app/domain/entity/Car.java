@@ -4,8 +4,6 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.AttributeOverride;
-import javax.persistence.AttributeOverrides;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.OneToMany;
@@ -23,22 +21,18 @@ public class Car extends BaseEntity {
 
     @NotNull @Column(name = "model", nullable = false, unique = true) private String model;
     @NotNull @Column(name = "make", nullable = false) private String make;
-
-    @AttributeOverrides({
-            @AttributeOverride(name = "startDate", column = @Column(name = "production_start_date", nullable = false)),
-            @AttributeOverride(name = "endDate", column = @Column(name = "production_end_date", nullable = false)),
-    })
-    private Period period;
+    @NotNull @Column(name = "production_start_date", nullable = false) private Integer startYear;
+    @NotNull @Column(name = "production_end_date", nullable = false) private Integer endYear;
 
     @OneToMany(mappedBy = "car", orphanRemoval = true) private List<ServiceTicket> serviceTickets = new ArrayList<>();
     @OneToMany(mappedBy = "car", orphanRemoval = true) private List<Part> parts = new ArrayList<>();
 
-    public Car(@NotNull String model, @NotNull String make, Period period) {
+    public Car(@NotNull String model, @NotNull String make, @NotNull Integer startYear, @NotNull Integer endYear) {
         this.model = model;
         this.make = make;
-        this.period = period;
+        this.startYear = startYear;
+        this.endYear = endYear;
     }
-
 
     public static final class CarBuilder {
         private Car car;
@@ -61,8 +55,13 @@ public class Car extends BaseEntity {
             return this;
         }
 
-        public CarBuilder withPeriod(Period period) {
-            car.setPeriod(period);
+        public CarBuilder withStartYear(Integer startYear) {
+            car.setStartYear(startYear);
+            return this;
+        }
+
+        public CarBuilder withEndYear(Integer endYear) {
+            car.setEndYear(endYear);
             return this;
         }
 

@@ -3,10 +3,9 @@ package org.pitrecki.car_dealer_crud_app.service;
 import lombok.AllArgsConstructor;
 import org.pitrecki.car_dealer_crud_app.domain.adapter.DBCarAdapter;
 import org.pitrecki.car_dealer_crud_app.domain.entity.Car;
-import org.pitrecki.car_dealer_crud_app.domain.entity.Period;
 import org.pitrecki.car_dealer_crud_app.domain.entity.ServiceTicket;
 import org.pitrecki.car_dealer_crud_app.domain.model.CarDto;
-import org.pitrecki.car_dealer_crud_app.domain.model.PeriodDto;
+import org.pitrecki.car_dealer_crud_app.domain.model.TimespanRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -22,9 +21,9 @@ import static org.threeten.extra.LocalDateRange.of;
 public class ServiceTicketService {
     private final DBCarAdapter carAdapter;
 
-    public Stream<ServiceTicket> findAllServiceTicketsWithinDate(CarDto car, PeriodDto period) {
+    public Stream<ServiceTicket> findAllServiceTicketsWithinDate(CarDto car, TimespanRequest period) {
         return findCarAndReturnAllServiceTickets(car).stream()
-                .filter(serviceTicket -> compareDates(serviceTicket.getPeriod(), period));
+                .filter(serviceTicket -> compareDates(serviceTicket, period));
     }
 
     private List<ServiceTicket> findCarAndReturnAllServiceTickets(CarDto car) {
@@ -33,9 +32,9 @@ public class ServiceTicketService {
                 .orElse(emptyList());
     }
 
-    private static boolean compareDates(Period period, PeriodDto periodDto) {
+    private static boolean compareDates(ServiceTicket ticket, TimespanRequest timespan) {
         return
-            of(periodDto.getStartDate(), periodDto.getEndDate())
-            .isConnected(of(period.getStartDate(), period.getEndDate()));
+            of(timespan.getStartDate(), timespan.getEndDate())
+            .isConnected(of(ticket.getStartDate(), ticket.getEndDate()));
     }
 }
