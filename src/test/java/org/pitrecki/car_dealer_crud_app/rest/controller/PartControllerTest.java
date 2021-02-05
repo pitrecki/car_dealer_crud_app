@@ -1,4 +1,4 @@
-package org.pitrecki.car_dealer_crud_app.rest;
+package org.pitrecki.car_dealer_crud_app.rest.controller;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
