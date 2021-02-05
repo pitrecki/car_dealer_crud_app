@@ -29,7 +29,7 @@ class PartTest {
 
         assertThat(part)
                 .extracting(Part::getCar, Part::getDaysToDispatch, Part::getDescription, Part::getName,
-                        Part::getPrice, Part::isAvailable)
+                        Part::getPrice, Part::getIsAvailable)
                 .containsExactly(SOME_CAR, SOME_DAYS_TO_DISPATCH, SOME_DESCRIPTION, SOME_NAME, SOME_PRICE, SOME_AVALAIBILITY);
     }
 }

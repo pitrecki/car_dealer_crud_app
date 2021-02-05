@@ -1,5 +1,6 @@
 package org.pitrecki.car_dealer_crud_app.domain.entity;
 
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -11,6 +12,7 @@ import static lombok.AccessLevel.PRIVATE;
 @Embeddable
 @NoArgsConstructor(access = PRIVATE)
 @Getter
+@EqualsAndHashCode
 public class Period {
 
     private LocalDate startDate;

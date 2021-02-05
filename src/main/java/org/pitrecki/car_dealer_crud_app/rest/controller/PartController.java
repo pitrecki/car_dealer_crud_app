@@ -1,4 +1,4 @@
-package org.pitrecki.car_dealer_crud_app.rest;
+package org.pitrecki.car_dealer_crud_app.rest.controller;
 
 import lombok.RequiredArgsConstructor;
 import org.pitrecki.car_dealer_crud_app.service.PartService;

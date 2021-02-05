@@ -10,4 +10,5 @@ dependencies {
     testCompile 'org.junit.jupiter:junit-jupiter-api:5.7.0'
     testCompile 'org.junit.jupiter:junit-jupiter-engine:5.7.0'
     testCompile 'com.h2database:h2:1.4.200'
+    compile 'org.modelmapper:modelmapper:2.3.9'
 }
