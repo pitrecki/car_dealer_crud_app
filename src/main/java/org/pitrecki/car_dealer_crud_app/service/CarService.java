@@ -1,6 +1,7 @@
 package org.pitrecki.car_dealer_crud_app.service;
 
 import lombok.AllArgsConstructor;
+import org.pitrecki.car_dealer_crud_app.aspect.Logging;
 import org.pitrecki.car_dealer_crud_app.domain.adapter.DBCarAdapter;
 import org.pitrecki.car_dealer_crud_app.domain.entity.Car;
 import org.pitrecki.car_dealer_crud_app.domain.entity.Part;
@@ -19,12 +20,14 @@ import static java.util.Collections.emptyList;
 public class CarService {
     private final DBCarAdapter carAdapter;
 
+    @Logging
     public Stream<Part> findPartsByName(String name, CarDto car) {
         return findCarAndReturnAllParts(car).stream()
                 .filter(part -> part.getName().contains(name))
                 .distinct();
     }
 
+    @Logging
     public Stream<Part> findPartsByDescription(String description, CarDto car) {
         return findCarAndReturnAllParts(car).stream()
                 .filter(part -> part.getDescription().contains(description))
