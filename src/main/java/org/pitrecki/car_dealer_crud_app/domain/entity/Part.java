@@ -29,7 +29,7 @@ import static javax.persistence.CascadeType.ALL;
 public class Part extends BaseEntity {
     @NotNull @Column(name = "name", nullable = false) private String name;
     @NotNull @Column(name = "description", nullable = false) private String description;
-    @NotNull @Column(name = "price", precision = 2) private BigDecimal price;
+    @NotNull @Column(name = "price") private BigDecimal price;
     @Column(name = "available") private Boolean isAvailable = false;
     @Positive @Column(name = "days_to_dispatch") private Integer daysToDispatch = 0;
     @ManyToOne @JoinColumn(name = "car_id") private Car car;
