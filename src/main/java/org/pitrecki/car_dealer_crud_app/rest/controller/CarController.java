@@ -19,16 +19,14 @@ public class CarController {
     private final CarService service;
     private final ObjectMapper mapper;
 
-    @GetMapping(value = "/api/car", params = "partName")
-    public ResponseEntity<Stream<PartDto>> searchPartsByName(@RequestParam(name = "partName") String name, CarDto carDto) {
-        Stream<Part> parts = service.findPartsByName(name, carDto);
-        return prepareResponse(parts, mapper);
-    }
+    @GetMapping(value = "/api/car")
+    public ResponseEntity<Stream<PartDto>> searchPartsByNameOrDescription(@RequestParam(name = "partName", required = false) String name,
+                                                                          @RequestParam(name = "partDesc", required = false) String description,
+                                                                          CarDto carDto) {
+        Stream<Part> parts = description == null ?
+                service.findPartsByName(name, carDto) :
+                service.findPartsByDescription(description, carDto);
 
-    @GetMapping(value = "/api/car", params = "partDesc")
-    public ResponseEntity<Stream<PartDto>> searchPartsByDescrrption(@RequestParam(name = "partDesc") String description,
-                                                                    CarDto carDto) {
-        Stream<Part> parts = service.findPartsByDescription(description, carDto);
         return prepareResponse(parts, mapper);
     }
 
