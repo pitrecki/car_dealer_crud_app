@@ -45,6 +45,7 @@ public class TestDumies {
         DUMMY_PART.setId(DUMMY_ID);
         DUMMY_SERVICE_TICKET.setId(DUMMY_ID);
         DUMMY_CAR.setParts(List.of(DUMMY_PART));
+        DUMMY_CAR.setServiceTickets(List.of(DUMMY_SERVICE_TICKET));
     }
 
     private TestDumies() {
