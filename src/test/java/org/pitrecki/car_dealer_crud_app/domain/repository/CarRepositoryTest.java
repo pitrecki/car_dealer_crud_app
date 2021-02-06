@@ -25,8 +25,6 @@ class CarRepositoryTest {
     void shouldFindCarByGivenNameAndMake() {
         Optional<Car> result = repository.findByModelAndMake(DUMMY_STRING, DUMMY_STRING);
 
-        assertThat(result)
-                .usingRecursiveComparison()
-                .isEqualTo(Optional.of(DUMMY_CAR));
+        assertThat(result).contains(DUMMY_CAR);
     }
 }
