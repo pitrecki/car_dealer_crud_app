@@ -24,7 +24,6 @@ import static org.springframework.http.HttpMethod.POST;
 import static org.springframework.http.MediaType.APPLICATION_JSON;
 import static org.springframework.test.web.servlet.ResultMatcher.matchAll;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.request;
-import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static org.springframework.test.web.servlet.setup.MockMvcBuilders.standaloneSetup;
@@ -55,7 +54,7 @@ class ServiceTicketControllerTest {
         mvc.perform(request(GET, "/api/service")
                 .param("model", DUMMY_STRING)
                 .param("make", DUMMY_STRING)
-                .param("starDate", DUMMY_DATE.toString())
+                .param("startDate", DUMMY_DATE.toString())
                 .param("endDate", DUMMY_DATE.plusDays(1).toString()))
                 .andExpect(
                         matchAll(status().isOk(),
@@ -69,7 +68,6 @@ class ServiceTicketControllerTest {
         mvc.perform(request(POST, "/api/service")
                 .contentType(APPLICATION_JSON)
                 .content("{\"id\": 1, \"description\": \"someDesc\"}"))
-                .andDo(print())
                 .andExpect(status().isOk());
     }
 }

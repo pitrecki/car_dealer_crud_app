@@ -23,14 +23,14 @@ public class CarService {
     @Logging
     public Stream<Part> findPartsByName(String name, CarDto car) {
         return findCarAndReturnAllParts(car).stream()
-                .filter(part -> part.getName().contains(name))
+                .filter(part -> part.getName().contains(name) && notBlankOrEmpty(name))
                 .distinct();
     }
 
     @Logging
     public Stream<Part> findPartsByDescription(String description, CarDto car) {
         return findCarAndReturnAllParts(car).stream()
-                .filter(part -> part.getDescription().contains(description))
+                .filter(part -> part.getDescription().contains(description) && notBlankOrEmpty(description))
                 .distinct();
     }
 
@@ -39,5 +39,9 @@ public class CarService {
         return carAdapter.findCarByModelAndMake(car.getModel(), car.getMake())
                 .map(Car::getParts)
                 .orElse(emptyList());
+    }
+
+    private static boolean notBlankOrEmpty(String  s) {
+        return !(s.isEmpty() || s.isBlank());
     }
 }
