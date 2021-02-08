@@ -5,7 +5,7 @@ import org.junit.jupiter.api.Test;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.pitrecki.car_dealer_crud_app.domain.entity.Car.CarBuilder.aCar;
+import static org.pitrecki.car_dealer_crud_app.domain.entity.Car.aCar;
 import static org.pitrecki.car_dealer_crud_app.utils.TestDummies.DUMMY_INTERGER;
 import static org.pitrecki.car_dealer_crud_app.utils.TestDummies.DUMMY_PART;
 import static org.pitrecki.car_dealer_crud_app.utils.TestDummies.DUMMY_SERVICE_TICKET;

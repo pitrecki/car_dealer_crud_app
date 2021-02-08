@@ -5,7 +5,7 @@ import org.junit.jupiter.api.Test;
 import java.math.BigDecimal;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.pitrecki.car_dealer_crud_app.domain.entity.Part.PartBuilder.aPart;
+import static org.pitrecki.car_dealer_crud_app.domain.entity.Part.aPart;
 
 class PartTest {
 
@@ -24,7 +24,7 @@ class PartTest {
                 .withPrice(SOME_PRICE)
                 .withDaysToDispatch(SOME_DAYS_TO_DISPATCH)
                 .withDescription(SOME_DESCRIPTION)
-                .withAvalaibility(SOME_AVALAIBILITY)
+                .withIsAvailable(SOME_AVALAIBILITY)
                 .build();
 
         assertThat(part)

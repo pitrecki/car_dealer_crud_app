@@ -1,6 +1,7 @@
 package org.pitrecki.car_dealer_crud_app.domain.entity;
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
@@ -20,21 +21,31 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static javax.persistence.CascadeType.ALL;
+import static lombok.AccessLevel.PRIVATE;
 
 @Entity
 @Table(name = "part")
 @NoArgsConstructor
-@AllArgsConstructor
+@AllArgsConstructor(access = PRIVATE)
 @Data
 @EqualsAndHashCode(callSuper = false, exclude = {"tickets", "car"})
 @ToString(exclude = {"tickets", "car"})
+@Builder(builderMethodName = "aPart", setterPrefix = "with")
 public class Part extends BaseEntity {
     @NotNull @Column(name = "name", nullable = false) private String name;
     @NotNull @Column(name = "description", nullable = false) private String description;
     @NotNull @Column(name = "price") private BigDecimal price;
+
+    @Builder.Default
     @Column(name = "available") private Boolean isAvailable = false;
+
+    @Builder.Default
     @Positive @Column(name = "days_to_dispatch") private Integer daysToDispatch = 0;
+
+
     @ManyToOne @JoinColumn(name = "car_id") private Car car;
+
+    @Builder.Default
     @ManyToMany(cascade = ALL)
     @JoinTable(
             name = "part_service",
@@ -47,52 +58,5 @@ public class Part extends BaseEntity {
         this.name = name;
         this.description = description;
         this.price = price;
-    }
-
-
-    public static final class PartBuilder {
-        private Part part;
-
-        private PartBuilder() {
-            part = new Part();
-        }
-
-        public static PartBuilder aPart() {
-            return new PartBuilder();
-        }
-
-        public PartBuilder withName(String name) {
-            part.setName(name);
-            return this;
-        }
-
-        public PartBuilder withDescription(String description) {
-            part.setDescription(description);
-            return this;
-        }
-
-        public PartBuilder withPrice(BigDecimal price) {
-            part.setPrice(price);
-            return this;
-        }
-
-        public PartBuilder withAvalaibility(Boolean avalaibility) {
-            part.setIsAvailable(avalaibility);
-            return this;
-        }
-
-        public PartBuilder withDaysToDispatch(Integer daysToDispatch) {
-            part.setDaysToDispatch(daysToDispatch);
-            return this;
-        }
-
-        public PartBuilder withCar(Car car) {
-            part.setCar(car);
-            return this;
-        }
-
-        public Part build() {
-            return part;
-        }
     }
 }

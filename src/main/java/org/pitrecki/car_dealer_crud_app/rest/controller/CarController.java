@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.validation.Valid;
 import java.util.stream.Stream;
 
 @RestController
@@ -22,7 +23,7 @@ public class CarController {
     @GetMapping(value = "/api/car")
     public ResponseEntity<Stream<PartDto>> searchPartsByNameOrDescription(@RequestParam(name = "partName", required = false) String name,
                                                                           @RequestParam(name = "partDesc", required = false) String description,
-                                                                          CarDto carDto) {
+                                                                          @Valid CarDto carDto) {
         Stream<Part> parts = description == null ?
                 service.findPartsByName(name, carDto) :
                 service.findPartsByDescription(description, carDto);

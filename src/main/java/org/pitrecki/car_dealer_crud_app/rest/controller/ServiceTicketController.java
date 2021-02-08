@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.validation.Valid;
 import java.util.stream.Stream;
 
 @RestController
@@ -23,14 +24,15 @@ public class ServiceTicketController {
     private final ObjectMapper mapper;
 
     @GetMapping("/api/service")
-    public ResponseEntity<Stream<ServiceTicketDto>> findAllServiceTicketForCarWithinPeriod(CarDto carDto, TimespanRequest timespan) {
+    public ResponseEntity<Stream<ServiceTicketDto>> findAllServiceTicketForCarWithinPeriod(@Valid CarDto carDto,
+                                                                                           TimespanRequest timespan) {
         Stream<ServiceTicket> tickets = service.findAllServiceTicketsWithinDate(carDto, timespan);
         Stream<ServiceTicketDto> stream = tickets.map(serviceTicket -> mapper.mapToDto(serviceTicket, ServiceTicketDto.class));
         return ResponseEntity.ok(stream);
     }
 
     @PostMapping("/api/service")
-    public void addTicket(@RequestBody ServiceTicketRequest request) {
+    public void addTicket(@RequestBody @Valid ServiceTicketRequest request) {
         service.addTicket(request);
     }
 }
