@@ -18,7 +18,6 @@ import java.util.List;
 import java.util.stream.Stream;
 
 import static java.util.Collections.emptyList;
-import static org.pitrecki.car_dealer_crud_app.domain.entity.ServiceTicket.ServiceTicketBuilder.aServiceTicket;
 import static org.threeten.extra.LocalDateRange.of;
 
 @Service
@@ -32,7 +31,7 @@ public class ServiceTicketService {
     @Logging
     public void addTicket(ServiceTicketRequest request) {
         Part part = partAdapter.findPartById(request.getId());
-        ServiceTicket ticket = aServiceTicket()
+        ServiceTicket ticket = ServiceTicket.aServiceTicket()
                 .withCar(part.getCar())
                 .withParts(List.of(part))
                 .withDescription(request.getDescription())

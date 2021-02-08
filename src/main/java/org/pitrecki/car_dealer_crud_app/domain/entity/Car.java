@@ -1,5 +1,7 @@
 package org.pitrecki.car_dealer_crud_app.domain.entity;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
@@ -13,20 +15,25 @@ import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.List;
 
+import static lombok.AccessLevel.PRIVATE;
+
 @Entity
 @Table(name = "car")
 @NoArgsConstructor
+@AllArgsConstructor(access = PRIVATE)
 @Data
 @EqualsAndHashCode(callSuper = false, exclude = {"parts", "serviceTickets"})
 @ToString(exclude = {"parts", "serviceTickets"})
+@Builder(setterPrefix = "with", builderMethodName = "aCar")
 public class Car extends BaseEntity {
 
     @NotNull @Column(name = "model", nullable = false, unique = true) private String model;
     @NotNull @Column(name = "make", nullable = false) private String make;
     @NotNull @Column(name = "production_start_date", nullable = false) private Integer startYear;
     @NotNull @Column(name = "production_end_date", nullable = false) private Integer endYear;
-
+    @Builder.Default
     @OneToMany(mappedBy = "car", orphanRemoval = true) private List<ServiceTicket> serviceTickets = new ArrayList<>();
+    @Builder.Default
     @OneToMany(mappedBy = "car", orphanRemoval = true) private List<Part> parts = new ArrayList<>();
 
     public Car(@NotNull String model, @NotNull String make, @NotNull Integer startYear, @NotNull Integer endYear) {
@@ -34,52 +41,6 @@ public class Car extends BaseEntity {
         this.make = make;
         this.startYear = startYear;
         this.endYear = endYear;
-    }
-
-    public static final class CarBuilder {
-        private Car car;
-
-        private CarBuilder() {
-            car = new Car();
-        }
-
-        public static CarBuilder aCar() {
-            return new CarBuilder();
-        }
-
-        public CarBuilder withModel(String model) {
-            car.setModel(model);
-            return this;
-        }
-
-        public CarBuilder withMake(String make) {
-            car.setMake(make);
-            return this;
-        }
-
-        public CarBuilder withStartYear(Integer startYear) {
-            car.setStartYear(startYear);
-            return this;
-        }
-
-        public CarBuilder withEndYear(Integer endYear) {
-            car.setEndYear(endYear);
-            return this;
-        }
-
-        public CarBuilder withServiceTickets(List<ServiceTicket> serviceTickets) {
-            car.setServiceTickets(serviceTickets);
-            return this;
-        }
-
-        public CarBuilder withParts(List<Part> parts) {
-            car.setParts(parts);
-            return this;
-        }
-
-        public Car build() {
-            return car;
-        }
     }
 }
 

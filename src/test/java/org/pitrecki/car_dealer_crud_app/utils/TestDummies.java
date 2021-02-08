@@ -8,9 +8,9 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.List;
 
-import static org.pitrecki.car_dealer_crud_app.domain.entity.Car.CarBuilder.aCar;
-import static org.pitrecki.car_dealer_crud_app.domain.entity.Part.PartBuilder.aPart;
-import static org.pitrecki.car_dealer_crud_app.domain.entity.ServiceTicket.ServiceTicketBuilder.aServiceTicket;
+import static org.pitrecki.car_dealer_crud_app.domain.entity.Car.aCar;
+import static org.pitrecki.car_dealer_crud_app.domain.entity.Part.aPart;
+import static org.pitrecki.car_dealer_crud_app.domain.entity.ServiceTicket.aServiceTicket;
 
 public class TestDummies {
 
@@ -24,7 +24,7 @@ public class TestDummies {
     public static final Part DUMMY_PART = aPart()
             .withDescription(DUMMY_STRING)
             .withPrice(DUMMY_PRICE)
-            .withAvalaibility(DUMMY_BOOLEAN)
+            .withIsAvailable(DUMMY_BOOLEAN)
             .withDaysToDispatch(DUMMY_INTERGER)
             .withName(DUMMY_STRING)
             .build();
